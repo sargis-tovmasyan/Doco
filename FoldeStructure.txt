@@ -1,0 +1,34 @@
+﻿DocumentLib/
+│
+├── Core/
+│   ├── Interfaces/
+│   │   ├── IDocument.cs
+│   │   ├── IDocumentService.cs
+│   │   ├── IStorageProvider.cs
+│   │   ├── IVersioningService.cs
+│   │   ├── IMetadataService.cs
+│   │   ├── IEncryptionService.cs
+│   │   └── ISearchService.cs
+│   ├── Models/
+│   │   ├── DocumentMetadata.cs
+│   │   └── DocumentVersion.cs
+│   ├── DocumentType.cs
+│   └── Exceptions/
+│       └── UnsupportedDocumentTypeException.cs
+│
+├── Services/
+│   ├── Pdf/
+│   │   └── PdfDocumentService.cs
+│   ├── Storage/
+│   │   └── LocalStorageProvider.cs
+│   └── Metadata/
+│       └── BasicMetadataService.cs
+│
+├── Extensions/
+│   └── Future: Encryption, Search, etc.
+│
+├── Tests/
+│   └── Unit and Integration Tests
+│
+└── SampleApp/
+    └── Program.cs
