@@ -1,9 +1,12 @@
-﻿namespace Doco.Application;
+﻿using Doco.Core;
+using Doco.Services;
+
+namespace Doco.Application;
 
 internal class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+
     }
 }

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Doco.Core.Exceptions
+﻿namespace Doco.Core.Exceptions
 {
-    internal class UnsupportedDocumentTypeException : Exception
+    public class UnsupportedDocumentTypeException : Exception
     {
         public UnsupportedDocumentTypeException(string message) : base(message)
         {

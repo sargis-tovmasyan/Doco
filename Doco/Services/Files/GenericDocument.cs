@@ -1,7 +1,7 @@
 ﻿using Doco.Core.Interfaces;
 using Doco.Core.Models;
 
-namespace Doco.Services.Files.Pdf;
+namespace Doco.Services.Files;
 
 public class GenericDocument : IDocument
 {

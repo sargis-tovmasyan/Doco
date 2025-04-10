@@ -11,9 +11,7 @@
 
   <ItemGroup>
     <Folder Include="Extensions\Encyption\" />
-    <Folder Include="Services\Metadata\" />
     <Folder Include="Services\Storage\" />
-    <Folder Include="Tests\" />
   </ItemGroup>
 
 </Project>
