@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Doco.Core.Interfaces;
 
-namespace Doco.Core.Interfaces
+internal interface IDocumentService
 {
-    internal interface IDocumentService
-    {
-    }
+    IDocument LoadDocument(string filePath);
+    void SaveDocument(IDocument document, string destinationPath);
+    void DeleteDocument(string filePath);
 }

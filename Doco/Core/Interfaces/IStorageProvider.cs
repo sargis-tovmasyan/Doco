@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿namespace Doco.Core.Interfaces;
+
+using System.IO;
 using System.Threading.Tasks;
 
-namespace Doco.Core.Interfaces
+public interface IStorageProvider
 {
-    internal interface IStorageProvider
-    {
-    }
+    Task<Stream> ReadAsync(string path);
+    Task WriteAsync(string path, Stream content);
+    Task DeleteAsync(string path);
+    bool Exists(string path);
 }
