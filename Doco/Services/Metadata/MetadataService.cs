@@ -8,6 +8,7 @@ namespace Doco.Services
     {
         private const string MetadataFileExtension = ".metadata.json";
 
+        //Solving AOT issues with JsonSerializerOptions as by default it's using Reflection
         private static readonly JsonSerializerOptions SerializerOptions = new JsonSerializerOptions
         {
             WriteIndented = true,
