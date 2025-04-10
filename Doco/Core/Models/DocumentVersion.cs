@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Doco.Core.Models;
 
-namespace Doco.Core.Models
+using System;
+
+public class DocumentVersion
 {
-    internal class DocumentVersion
-    {
-    }
+    public string VersionId { get; set; } = string.Empty;
+    public DateTime Timestamp { get; set; }
+    public string FilePath { get; set; } = string.Empty;
 }

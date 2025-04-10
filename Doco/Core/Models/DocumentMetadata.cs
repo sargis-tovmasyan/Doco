@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Doco.Core.Models;
 
-namespace Doco.Core.Models
+using System;
+
+public class DocumentMetadata
 {
-    internal class DocumentMetadata
-    {
-    }
+    public string FileName { get; set; } = string.Empty;
+    public DocumentType Type { get; set; } = DocumentType.Unknown;
+    public string ContentType { get; set; } = "application/octet-stream";
+    public long Size { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime LastModifiedAt { get; set; }
 }

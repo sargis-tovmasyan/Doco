@@ -3,6 +3,7 @@
 
 public enum DocumentType
 {
+    Unknown,
     Pdf,
     PlainText,
     Docx,
