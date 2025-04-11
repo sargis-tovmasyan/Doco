@@ -13,4 +13,19 @@
 ✔️ Full-text search<br>
 ✔️ Encryption<br>
 
+<pre>
+USER/API
+   |
+   v
+ISearchService.Search("invoice", filters)
+   |
+   +--> IndexStore.Search("invoice") --> [DocA, DocB]
+   |
+   +--> MetadataStore.Filter([DocA, DocB], filters)
+   |
+   +--> DocumentStore.LoadMetadata/Preview     (optional)
+   |
+   v
+=> Final ranked, filtered results
+</pre>
 
