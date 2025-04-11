@@ -1,7 +1,7 @@
 ﻿using Doco.Core;
 using Doco.Core.Models;
 
-namespace Doco.Tests.Services.Metadata
+namespace Doco.Tests.Core.Models
 {
     public class DocumentMetadataTests
     {
