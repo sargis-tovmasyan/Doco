@@ -1,4 +1,7 @@
 ﻿using Doco.Core.Interfaces;
+using Doco.Core.Models;
+using Doco.Databases.MetadataLiteDb;
+using Doco.Extensions;
 using LiteDB;
 
 namespace Doco.Services.Metadata
@@ -33,13 +36,20 @@ namespace Doco.Services.Metadata
                 entry = new MetadataEntry
                 {
                     DocumentPath = documentPath,
-                    Metadata = metadata
+                    Metadata = metadata,
+                    LastModified = DateTime.Now
+
                 };
+
                 collection.Insert(entry);
             }
             else
             {
+                if (entry.Metadata.IsEqualTo(metadata)) return; // Preventing unnecessary updates
+
                 entry.Metadata = metadata;
+                entry.LastModified = DateTime.Now;
+
                 collection.Update(entry);
             }
         }

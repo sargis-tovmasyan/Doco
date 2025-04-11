@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <Folder Include="Extensions\Encyption\" />
+    <Folder Include="Extensions\Metadata\" />
     <Folder Include="Services\Storage\" />
   </ItemGroup>
 
