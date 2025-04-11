@@ -1,82 +1,23 @@
-using System.Text.Json;
-using System.Text.Json.Serialization.Metadata;
 using Doco.Core.Interfaces;
 
-namespace Doco.Services
+namespace Doco.Services.Metadata
 {
     public class MetadataService : IMetadataService
     {
-        private const string MetadataFileExtension = ".metadata.json";
+        private readonly IMetaDatabase _database;
 
-        //Solving AOT issues with JsonSerializerOptions as by default it's using Reflection
-        private static readonly JsonSerializerOptions SerializerOptions = new JsonSerializerOptions
+        public MetadataService(IMetaDatabase database)
         {
-            WriteIndented = true,
-            TypeInfoResolver = new DefaultJsonTypeInfoResolver
-            {
-                Modifiers =
-                {
-                    typeInfo =>
-                    {
-                        if (typeInfo.Type == typeof(Dictionary<string, string>) && typeInfo.Kind == JsonTypeInfoKind.Object)
-                        {
-                            typeInfo.Properties.Clear(); // Customize properties if needed
-                        }
-                    }
-                }
-            }
-        };
-
-        public async Task<IDictionary<string, string>> GetMetadataAsync(string documentPath)
-        {
-            string metadataFilePath = GetMetadataFilePath(documentPath);
-
-            if (!File.Exists(metadataFilePath))
-            {
-                return new Dictionary<string, string>();
-            }
-
-            string json = await File.ReadAllTextAsync(metadataFilePath);
-            return JsonSerializer.Deserialize<Dictionary<string, string>>(json, SerializerOptions)
-                   ?? new Dictionary<string, string>();
+            _database = database;
         }
 
-        public async Task SetMetadataAsync(string documentPath, IDictionary<string, string> metadata)
-        {
-            string metadataFilePath = GetMetadataFilePath(documentPath);
+        public IDictionary<string, string> GetMetadataAsync(string documentPath)
+            => _database.GetMetadata(documentPath);
 
-            var existingMetadata = await GetMetadataAsync(documentPath);
-            foreach (var kvp in metadata)
-            {
-                existingMetadata[kvp.Key] = kvp.Value;
-            }
+        public void SetMetadataAsync(string documentPath, IDictionary<string, string> metadata)
+            => _database.SetMetadata(documentPath, metadata);
 
-            string json = JsonSerializer.Serialize(existingMetadata, SerializerOptions);
-            await File.WriteAllTextAsync(metadataFilePath, json);
-        }
-
-        public async Task RemoveMetadataAsync(string documentPath, IEnumerable<string> keys)
-        {
-            string metadataFilePath = GetMetadataFilePath(documentPath);
-
-            if (!File.Exists(metadataFilePath))
-            {
-                return;
-            }
-
-            var existingMetadata = await GetMetadataAsync(documentPath);
-            foreach (var key in keys)
-            {
-                existingMetadata.Remove(key);
-            }
-
-            string json = JsonSerializer.Serialize(existingMetadata, new JsonSerializerOptions { WriteIndented = true });
-            await File.WriteAllTextAsync(metadataFilePath, json);
-        }
-
-        private string GetMetadataFilePath(string documentPath)
-        {
-            return Path.ChangeExtension(documentPath, MetadataFileExtension);
-        }
+        public void RemoveMetadataAsync(string documentPath, IEnumerable<string> keys)
+            => _database.RemoveMetadata(documentPath, keys);
     }
 }

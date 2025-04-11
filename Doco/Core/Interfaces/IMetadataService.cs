@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 public interface IMetadataService
 {
-    Task<IDictionary<string, string>> GetMetadataAsync(string documentPath);
-    Task SetMetadataAsync(string documentPath, IDictionary<string, string> metadata);
-    Task RemoveMetadataAsync(string documentPath, IEnumerable<string> keys);
+    IDictionary<string, string> GetMetadataAsync(string documentPath);
+    void SetMetadataAsync(string documentPath, IDictionary<string, string> metadata);
+    void RemoveMetadataAsync(string documentPath, IEnumerable<string> keys);
 }
