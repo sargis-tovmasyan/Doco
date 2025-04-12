@@ -17,19 +17,19 @@ internal class Program
             .Build();
 
         var searchService = host.Services.GetRequiredService<ISearchService>();
-        var metadataService = host.Services.GetRequiredService<IMetadataService>();
+        //var metadataService = host.Services.GetRequiredService<IMetadataService>();
 
-        string documentPath = @"D:\Downloads\Test.txt";
-        metadataService.SetMetadata(documentPath, new DocumentMetadata()
-        {
-            CreatedAt = DateTime.Now,
-            LastModifiedAt = DateTime.Now,
-            FileName = "Test.txt",
-            Type = DocumentType.PlainText,
-            Tags = new Dictionary<string, string>() {{"TestKey", "TestValue"}}
-        });
+        //string documentPath = @"D:\Downloads\Test.txt";
+        //metadataService.SetMetadata(documentPath, new DocumentMetadata()
+        //{
+        //    CreatedAt = DateTime.Now,
+        //    LastModifiedAt = DateTime.Now,
+        //    FileName = "Test.txt",
+        //    Type = DocumentType.PlainText,
+        //    Tags = new Dictionary<string, string>() {{"TestKey", "TestValue"}}
+        //});
 
-        searchService.IndexDocument(documentPath);
+        //searchService.IndexDocument(documentPath);
 
         var result = searchService.Search("lorem");
 
@@ -46,10 +46,12 @@ internal class Program
             return new MetaDatabase(connectionString);
         });
 
-        services.AddSingleton<ISearchService, InMemorySearchService>();
+        services.AddSingleton<ISearchService>(provider =>
+            new LuceneSearchService(
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Doco", "Index"), 
+                provider.GetRequiredService<IMetadataService>()));
+
 
         services.AddTransient<IMetadataService, MetadataService>();
-
-        // services.AddScoped<IMyRepository, MyRepository>();
     }
 }
