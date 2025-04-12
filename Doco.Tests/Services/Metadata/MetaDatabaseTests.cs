@@ -71,7 +71,7 @@ namespace Doco.Tests.Services.Metadata
             db.SetMetadata(documentPath, metadata);
 
             // Act
-            db.RemoveMetadata(documentPath, new[] { "Author" });
+            db.RemoveMetadata(documentPath, TODO);
             var retrievedMetadata = db.GetMetadata(documentPath);
 
             // Assert
@@ -90,7 +90,7 @@ namespace Doco.Tests.Services.Metadata
             db.SetMetadata(documentPath, metadata);
 
             // Act
-            db.RemoveMetadata(documentPath, new[] { "NonExistentKey" });
+            db.RemoveMetadata(documentPath, TODO);
             var retrievedMetadata = db.GetMetadata(documentPath);
 
             // Assert

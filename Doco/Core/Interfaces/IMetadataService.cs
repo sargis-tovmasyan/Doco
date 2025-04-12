@@ -1,11 +1,10 @@
-﻿namespace Doco.Core.Interfaces;
-
+﻿using Doco.Core.Models;
+namespace Doco.Core.Interfaces;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 public interface IMetadataService
 {
-    IDictionary<string, string> GetMetadataAsync(string documentPath);
-    void SetMetadataAsync(string documentPath, IDictionary<string, string> metadata);
-    void RemoveMetadataAsync(string documentPath, IEnumerable<string> keys);
+    DocumentMetadata GetMetadata(string documentPath);
+    void SetMetadata(string documentPath, DocumentMetadata documentMetadata);
+    void RemoveMetadata(string documentPath);
 }

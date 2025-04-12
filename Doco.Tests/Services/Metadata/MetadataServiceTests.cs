@@ -24,7 +24,7 @@ namespace Doco.Tests.Services.Metadata
             _mockDatabase.Setup(db => db.GetMetadata(documentPath)).Returns(expectedMetadata);
 
             // Act
-            var result = _metadataService.GetMetadataAsync(documentPath);
+            var result = _metadataService.GetMetadata(documentPath);
 
             // Assert
             Assert.NotNull(result);
@@ -40,7 +40,7 @@ namespace Doco.Tests.Services.Metadata
             var metadata = new Dictionary<string, string> { { "Author", "John Doe" } };
 
             // Act
-            _metadataService.SetMetadataAsync(documentPath, metadata);
+            _metadataService.SetMetadata(documentPath, metadata);
 
             // Assert
             _mockDatabase.Verify(db => db.SetMetadata(documentPath, metadata), Times.Once);
@@ -54,7 +54,7 @@ namespace Doco.Tests.Services.Metadata
             var keysToRemove = new[] { "Author" };
 
             // Act
-            _metadataService.RemoveMetadataAsync(documentPath, keysToRemove);
+            _metadataService.RemoveMetadata(documentPath, keysToRemove);
 
             // Assert
             _mockDatabase.Verify(db => db.RemoveMetadata(documentPath, keysToRemove), Times.Once);

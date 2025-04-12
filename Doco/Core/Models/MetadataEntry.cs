@@ -1,9 +1,12 @@
-﻿namespace Doco.Core.Models;
+﻿using LiteDB;
+
+namespace Doco.Core.Models;
 
 public class MetadataEntry
 {
-    public int Id { get; set; }
-    public string DocumentPath { get; set; }
-    public DateTime LastModified { get; set; }
-    public IDictionary<string, string> Metadata { get; set; } = new Dictionary<string, string>();
+    [BsonId]
+    public ObjectId Id { get; set; }
+    public required string DocumentPath { get; set; }
+    public required DateTime LastModified { get; set; }
+    public required DocumentMetadata Metadata { get; set; } = new();
 }

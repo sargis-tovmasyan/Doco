@@ -7,6 +7,13 @@ namespace Doco.Services.Files.Pdf;
 
 public class PdfDocumentService : IDocumentService
 {
+    private readonly IMetadataService _metadataService;
+
+    public PdfDocumentService(IMetadataService metadataService)
+    {
+        _metadataService = metadataService;
+    }
+
     public IDocument LoadDocument(string filePath)
     {
         if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
@@ -29,6 +36,8 @@ public class PdfDocumentService : IDocumentService
         using var input = document.GetContentStream();
         using var output = File.Create(destinationPath);
         input.CopyTo(output);
+
+        _metadataService.SetMetadata(destinationPath, document.Metadata);
     }
 
     public void DeleteDocument(string filePath)

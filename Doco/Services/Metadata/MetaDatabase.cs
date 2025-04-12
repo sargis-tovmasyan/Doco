@@ -1,7 +1,5 @@
 ﻿using Doco.Core.Interfaces;
 using Doco.Core.Models;
-using Doco.Databases.MetadataLiteDb;
-using Doco.Extensions;
 using LiteDB;
 
 namespace Doco.Services.Metadata
@@ -19,14 +17,14 @@ namespace Doco.Services.Metadata
             _database = new LiteDatabase(connectionString);
         }
 
-        public IDictionary<string, string> GetMetadata(string documentPath)
+        public DocumentMetadata GetMetadata(string documentPath)
         {
             var collection = _database.GetCollection<MetadataEntry>(COLLECTION_NAME);
             var entry = collection.FindOne(e => e.DocumentPath == documentPath);
-            return entry?.Metadata ?? new Dictionary<string, string>();
+            return entry?.Metadata ?? new DocumentMetadata();
         }
 
-        public void SetMetadata(string documentPath, IDictionary<string, string> metadata)
+        public void SetMetadata(string documentPath, DocumentMetadata documentMetadata)
         {
             var collection = _database.GetCollection<MetadataEntry>(COLLECTION_NAME);
             var entry = collection.FindOne(e => e.DocumentPath == documentPath);
@@ -36,37 +34,37 @@ namespace Doco.Services.Metadata
                 entry = new MetadataEntry
                 {
                     DocumentPath = documentPath,
-                    Metadata = metadata,
+                    Metadata = documentMetadata,
                     LastModified = DateTime.Now
-
                 };
 
                 collection.Insert(entry);
             }
             else
             {
-                if (entry.Metadata.IsEqualTo(metadata)) return; // Preventing unnecessary updates
+                if (entry.Metadata.LastModifiedAt == documentMetadata.LastModifiedAt)
+                    return; // Preventing unnecessary updates
 
-                entry.Metadata = metadata;
+                entry.Metadata = documentMetadata;
                 entry.LastModified = DateTime.Now;
 
                 collection.Update(entry);
             }
         }
 
-        public void RemoveMetadata(string documentPath, IEnumerable<string> keys)
+        public bool RemoveMetadata(string documentPath)
         {
+            bool result = false;
+
             var collection = _database.GetCollection<MetadataEntry>(COLLECTION_NAME);
             var entry = collection.FindOne(e => e.DocumentPath == documentPath);
 
             if (entry != null)
             {
-                foreach (var key in keys)
-                {
-                    entry.Metadata.Remove(key);
-                }
-                collection.Update(entry);
+                result = collection.Delete(new BsonValue(entry.Id));
             }
+
+            return result;  
         }
 
         public void Dispose()

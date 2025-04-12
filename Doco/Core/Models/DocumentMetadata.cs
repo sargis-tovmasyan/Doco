@@ -10,4 +10,5 @@ public class DocumentMetadata
     public long Size { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime LastModifiedAt { get; set; }
+    public IDictionary<string, string> Tags { get; set; } = new Dictionary<string, string>();
 }

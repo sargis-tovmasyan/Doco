@@ -1,8 +1,10 @@
+   using Doco.Core.Models;
+
    namespace Doco.Core.Interfaces;
 
    public interface IMetaDatabase
    {
-       IDictionary<string, string> GetMetadata(string documentPath);
-       void SetMetadata(string documentPath, IDictionary<string, string> metadata);
-       void RemoveMetadata(string documentPath, IEnumerable<string> keys);
+       DocumentMetadata GetMetadata(string documentPath);
+       void SetMetadata(string documentPath, DocumentMetadata documentMetadata);
+       bool RemoveMetadata(string documentPath);
    }

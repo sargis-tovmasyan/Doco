@@ -1,4 +1,5 @@
 using Doco.Core.Interfaces;
+using Doco.Core.Models;
 
 namespace Doco.Services.Metadata
 {
@@ -11,13 +12,13 @@ namespace Doco.Services.Metadata
             _database = database;
         }
 
-        public IDictionary<string, string> GetMetadataAsync(string documentPath)
+        public DocumentMetadata GetMetadata(string documentPath)
             => _database.GetMetadata(documentPath);
 
-        public void SetMetadataAsync(string documentPath, IDictionary<string, string> metadata)
-            => _database.SetMetadata(documentPath, metadata);
+        public void SetMetadata(string documentPath, DocumentMetadata documentMetadata)
+            => _database.SetMetadata(documentPath, documentMetadata);
 
-        public void RemoveMetadataAsync(string documentPath, IEnumerable<string> keys)
-            => _database.RemoveMetadata(documentPath, keys);
+        public void RemoveMetadata(string documentPath)
+            => _database.RemoveMetadata(documentPath);
     }
 }

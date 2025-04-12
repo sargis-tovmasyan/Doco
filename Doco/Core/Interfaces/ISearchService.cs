@@ -1,11 +1,10 @@
 ﻿using Doco.Core.Models;
 
-namespace Doco.Core.Interfaces
+namespace Doco.Core.Interfaces;
+
+public interface ISearchService
 {
-    internal interface ISearchService
-    {
-        Task<IEnumerable<SearchResult>> SearchAsync(string query, IDictionary<string, string>? filters = null);
-        Task IndexDocumentAsync(string documentPath);
-        Task RemoveFromIndexAsync(string documentPath);
-    }
+    IEnumerable<SearchResult> Search(string query, IDictionary<string, string>? filters = null);
+    void IndexDocument(string documentPath);
+    void RemoveFromIndex(string documentPath);
 }
