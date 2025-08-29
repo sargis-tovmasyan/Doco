@@ -1,6 +1,4 @@
-🧭 Finalized Design Goals (Updated)
-
-## 💪 Aspect	Choice:
+Design Goals
 
 📦 Document Type	Start with PDF, support others later<br>
 🗃 Storage	Local-only first, cloud-pluggable later<br>
